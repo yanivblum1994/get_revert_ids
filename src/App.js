@@ -1,25 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import {Route, Routes, Navigate} from 'react-router-dom';
+import { FileUploader } from './Components/FileUploader';
+import {ServicesChooser} from './Components/ServicesChooser';
+import {OutputsShow} from './Components/OutputsShow';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Routes>
+      <Route
+        path="/"
+        exact
+        element={<Navigate to="/fileUploader" replace />}
+      ></Route>
+      <Route path="/servicesChooser" exact element={<ServicesChooser />}></Route>
+      <Route path="/outputsShow" element={<OutputsShow />}></Route>
+      <Route path="/fileUploader" element={<FileUploader />}></Route>
+    </Routes>
+      );
 }
 
 export default App;
