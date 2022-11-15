@@ -10,7 +10,6 @@ export const FileUploader = () => {
     const handleFileUpload = async (e) =>{
         const file = e.target.files[0];
         setSelectedFile(file);
-        console.log(file);
         const data = await file.arrayBuffer();
         let temp = read(data);
         setWorkbook(temp);
@@ -41,7 +40,6 @@ export const FileUploader = () => {
     }
 
     const proceedButton = () =>{
-        console.log(workbook);
         if(workbook){
             return(
                 <button
