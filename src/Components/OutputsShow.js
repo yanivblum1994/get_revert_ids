@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import './tableCss.css';
 
 export const OutputsShow = () => {
   const { state } = useLocation();
@@ -35,13 +36,14 @@ export const OutputsShow = () => {
     console.log(projectsToDisplay);
     return (
       <div>
-        <h3>{repo}</h3>
+        <h3>Repository:  {repo}</h3>
         <table>
           <thead>
             <tr>
               <th>Configuration Path</th>
               <th>Deploy Target</th>
               <th>Deploy id</th>
+              <th>Deploy date</th>
             </tr>
           </thead>
           <tbody>
@@ -51,31 +53,7 @@ export const OutputsShow = () => {
                   <td>{item.configuration_path}</td>
                   <td>{item.deploy_target}</td>
                   <td>{item.deploy_id}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    );
-  };
-  return (
-    <div>
-      <div>
-        <h1>Components</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Component</th>
-              <th>Deploy id</th>
-            </tr>
-          </thead>
-          <tbody>
-            {selectedComponents.map((item) => {
-              return (
-                <tr key={item.component}>
-                  <td>{item.component}</td>
-                  <td>{item.deploy_id}</td>
+                  <td>{item.timestamp}</td>
                 </tr>
               );
             })}
@@ -83,12 +61,45 @@ export const OutputsShow = () => {
         </table>
         <h3>*************************************************************</h3>
       </div>
+    );
+  };
+  return (
+    <div>
+      <div>
+        {selectedComponents.length>0 &&
+        <div>
+        <h1>Components</h1>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Deploy id</th>
+              <th>Deploy date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {selectedComponents.map((item) => {
+              return (
+                <tr key={item.component}>
+                  <td >{item.component}</td>
+                  <td>{item.deploy_id}</td>
+                  <td>{item.timestamp}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <h3>*************************************************************</h3>
+        </div>
+}
+      </div>
+      {selectedProjects != null &&
       <div>
         <h1>Projects</h1>
         {Object.keys(selectedProjects).map((item) => {
           return PresentDeployIds(item);
         })}
-      </div>
+      </div>}
     </div>
   );
 };
