@@ -11,7 +11,7 @@ const GetUniqueOptions = (arr) => {
 }
 
 const FillEmptyConfigurationPath = (x) => {
-        if(!x.configuration_path || x.configuration_path === '.'){
+        if(!x.configuration_path){
             x.configuration_path = x.deploy_target;
         }
 
@@ -74,9 +74,9 @@ export const ServicesChooser = () =>{
         </div>
         <div>
         <h2>Choose projects by repo</h2>
-        <MultipleProjectsSelector data = {allProjects}/>
+        <MultipleProjectsSelector data = {allProjects}
+        selectedComponents = {selectedComponents}/>
         </div>
-        {proceedButton()}
         </div>
     );
 };

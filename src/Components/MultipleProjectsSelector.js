@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Multiselect from "multiselect-react-dropdown";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-const UniqueReposFilter = (x, repos) => {
+const UniqueKeysFilter = (x, repos) => {
   repos.add(x.repository);
 };
 
-const CreateReposArr = (repos) => {
+const CreateOptionsArr = (arr) => {
   let res = [];
   let i = 0;
-  let keys = repos.keys();
+  let keys = arr.keys();
   for (const key of keys) {
     res.push({
-      repo: key,
+      key: key,
       id: i,
     });
     i++;
@@ -19,32 +21,65 @@ const CreateReposArr = (repos) => {
   return res;
 };
 
+const CreateProjectsOptionsArr = (projects) => {
+    let names = new Set();
+    for (const proj of projects){
+        if (names.has(proj.configuration_path)){
+            proj['seen'] = true;
+        }
+        else{
+            names.add(proj.configuration_path);
+            proj['seen'] = false;
+        }
+    }
+    return projects.filter(elem => elem.seen === false);
+}
+
 export const MultipleProjectsSelector = (props) => {
+    let navigate = useNavigate();
   const [selectedRepos, setSelectedRepos] = useState([]);
   const [reposChooseList, setReposChooseList] = useState([]);
-  const [selectedprojects, setSelectedProjects] = useState([]);
+  const [selectedProjects, setSelectedProjects] = useState();
   const [reposCounter, setReposCounter] = useState(0);
   let allProjects = props.data;
+  let selectedComponents = props.selectedComponents;
   const repos = new Set();
   allProjects.forEach((element) => {
-    UniqueReposFilter(element, repos);
+    UniqueKeysFilter(element, repos);
   });
-  let reposArr = CreateReposArr(repos);
+  let reposArr = CreateOptionsArr(repos);
 
-  const MultiSelectProjects = (repo) => {
+  useEffect(() =>{
+    if(selectedRepos.length != 0){
+        setReposCounter(reposCounter +1);
+        setReposChooseList(reposChooseList.concat(<MultiSelectProjects  data={reposCounter}/>));
+    }
+  }, [selectedRepos]);
+
+  useEffect(()=>{
+    console.log(selectedProjects);
+  },[selectedProjects]);
+ 
+
+  const MultiSelectProjects = (counter) => {
+    console.log(counter);
+    let repo = selectedRepos[counter.data];
     console.log(repo);
     let projects = allProjects.filter((x) => x.repository === repo);
     console.log(projects);
+    let projectsArr = CreateProjectsOptionsArr(projects);
+    console.log(projectsArr);
     return (
       <div>
         <Multiselect
-          options={projects}
+          options={projectsArr}
           onSelect={onSelect}
           onRemove={onRemove}
           displayValue="configuration_path"
           showCheckbox
           placeholder={"select projects"}
         />
+        <h4>*************************************************************</h4>
       </div>
     );
   };
@@ -55,40 +90,58 @@ export const MultipleProjectsSelector = (props) => {
         <Multiselect
           options={reposArr}
           onSelect={onSelectRepo}
-          displayValue="repo"
+          displayValue="key"
           selectionLimit={1}
           placeholder={"select a repo"}
         />
-        <MultiSelectProjects data={selectedRepos[reposCounter]}/>
-        <h4>*************************************************************</h4>
       </div>
     );
   };
   const onSelectRepo = (selectedList, selectedItem) => {
-    console.log(selectedItem);
-    setSelectedRepos([...selectedRepos, selectedItem.repo]);
-    console.log(selectedRepos);
-    setReposCounter(reposCounter +1);
-    console.log(reposCounter);
+    setSelectedRepos([...selectedRepos, selectedItem.key]);
   };
   const onAddBtnClick = (event) => {
     setReposChooseList(reposChooseList.concat(<RepoChooser />));
   };
 
   const onSelect = (selectedList, selectedItem) => {
-    setSelectedProjects(selectedprojects[selectedItem.repository] = selectedList);
-    console.log(selectedprojects);
+    setSelectedProjects({...selectedProjects,
+        [selectedItem.repository]:  selectedList}
+        );
 };
 
 const onRemove=(selectedList, removedItem) => {
-    setSelectedProjects(selectedprojects[removedItem.repository] = removedItem);
-    console.log(selectedprojects);
+    setSelectedProjects({...selectedProjects,
+        [removedItem.repository]:  selectedList}
+        );
+};
+
+const proceedButton = () =>{
+    return(
+        <button
+    type="button"
+    onClick={(e) =>{
+        navigate('/outputsShow',
+        {
+            state:
+            {
+                components: {selectedComponents},
+                selectedProjects : {selectedProjects},
+                allProjects : {allProjects}
+            }
+        })
+    }
+    }>Click to proceed</button>
+    );
 };
 
   return (
     <div>
+        <div>
       <button onClick={onAddBtnClick}>Add repo to choose from</button>
+      </div>
       {reposChooseList}
+      {proceedButton()}
     </div>
   )
 };
