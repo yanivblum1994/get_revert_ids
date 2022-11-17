@@ -6,7 +6,7 @@ table {
   margin: 0 auto;
   display: block;
   overflow-x: auto;
-  border-spacing: 0;
+  border-spacing: 1px;
 }
 
 tbody {
@@ -16,7 +16,7 @@ tbody {
 td {
   padding: 5px 10px;
   border-top-width: 0;
-  border-left-width: 0;
+  border-bottom-width: 1px;
 }
 
 th {
@@ -24,6 +24,7 @@ th {
   top: 0;
   background: #fff;
   vertical-align: bottom;
+  
 }
 
 th:last-child,
@@ -33,4 +34,11 @@ td:last-child {
 
 tr:last-child td {
   border-bottom-width: 0;
+}
+
+caption{
+    text-align: center;
+    font-weight: bolder;
+    font-size: 25px;
+    margin-bottom: 20px;
 }

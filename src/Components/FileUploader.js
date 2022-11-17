@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {read, utils} from "xlsx";
+import './button.css';
+import './containerDiv.css';
+
 
 export const FileUploader = () => {
     let navigate = useNavigate();
@@ -42,7 +45,7 @@ export const FileUploader = () => {
     const proceedButton = () =>{
         if(workbook){
             return(
-                <button
+                <button className="button-design"
             type="button"
             onClick={(e) =>{
                 navigate('/servicesChooser',
@@ -63,9 +66,9 @@ export const FileUploader = () => {
         }
     }
     return (
-        <div>
+        <div className="container-div">
             <h1>Upload the revert id's file</h1>
-            <p><a href="https://d9builder.falconetix.com/job/Get_Revert_IDs" target="_blank" rel="noopener noreferrer">Click here to go to Jenkins</a></p>
+            <p><a href="https://d9builder.falconetix.com/job/Get_Revert_IDs" target="_blank" rel="noopener noreferrer">Click here to go to the Jenkins job</a></p>
             <input type="file" onChange={handleFileUpload}/>
             {fileData()}
             {proceedButton()}

@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import './tableCss.css';
+import './containerDiv.css';
 
 export const OutputsShow = () => {
   const { state } = useLocation();
@@ -36,8 +37,8 @@ export const OutputsShow = () => {
     console.log(projectsToDisplay);
     return (
       <div>
-        <h3>Repository:  {repo}</h3>
         <table>
+        <caption>Repository:  {repo}</caption>
           <thead>
             <tr>
               <th>Configuration Path</th>
@@ -59,12 +60,12 @@ export const OutputsShow = () => {
             })}
           </tbody>
         </table>
-        <h3>*************************************************************</h3>
+        <h3>****************************************************************************************************************</h3>
       </div>
     );
   };
   return (
-    <div>
+    <div className="container-div">
       <div>
         {selectedComponents.length>0 &&
         <div>
@@ -89,7 +90,7 @@ export const OutputsShow = () => {
             })}
           </tbody>
         </table>
-        <h3>*************************************************************</h3>
+        <h3>****************************************************************************************************************</h3>
         </div>
 }
       </div>

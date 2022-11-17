@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import {utils} from 'xlsx';
 import Multiselect from 'multiselect-react-dropdown';
 import { MultipleProjectsSelector } from "./MultipleProjectsSelector";
+import './button.css';
+import './containerDiv.css'
 
 
 const GetUniqueOptions = (arr) => {
@@ -34,22 +36,6 @@ export const ServicesChooser = () =>{
     const components_sheet_json = utils.sheet_to_json(components_sheet);
     let uniqueComponents = GetUniqueOptions(components_sheet_json);
 
-    const proceedButton = () =>{
-            return(
-                <button
-            type="button"
-            onClick={(e) =>{
-                navigate('/outputsShow',
-                {
-                    state:
-                    {
-                        components: {selectedComponents}
-                    }
-                })
-            }
-            }>Click to proceed</button>
-            );
-        };
 
     const onSelect = (selectedList, selectedItem) => {
         setSelectedComponents(selectedList);
@@ -59,11 +45,12 @@ export const ServicesChooser = () =>{
         setSelectedComponents(selectedList);
     };
     return(
-        <div>
+        <div className='container-div'>
             <div>
         <h1>Choose you inputs</h1>
         <h2>Choose components</h2>
         <Multiselect
+        className="multi-select-dsg"
         options={uniqueComponents}
         onSelect={onSelect}
         onRemove={onRemove}

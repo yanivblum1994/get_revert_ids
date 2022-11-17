@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Multiselect from "multiselect-react-dropdown";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import './multiSelect.css';
 
 const UniqueKeysFilter = (x, repos) => {
   repos.add(x.repository);
@@ -72,6 +73,7 @@ export const MultipleProjectsSelector = (props) => {
     return (
       <div>
         <Multiselect
+        className="multi-select-dsg"
           options={projectsArr}
           onSelect={onSelect}
           onRemove={onRemove}
@@ -79,7 +81,7 @@ export const MultipleProjectsSelector = (props) => {
           showCheckbox
           placeholder={"select projects"}
         />
-        <h4>*************************************************************</h4>
+        <h4>**************************************************************************************</h4>
       </div>
     );
   };
@@ -88,6 +90,7 @@ export const MultipleProjectsSelector = (props) => {
     return (
       <div>
         <Multiselect
+        className="multi-select-dsg"
           options={reposArr}
           onSelect={onSelectRepo}
           displayValue="key"
@@ -119,6 +122,7 @@ const onRemove=(selectedList, removedItem) => {
 const proceedButton = () =>{
     return(
         <button
+        className="button-design"
     type="button"
     onClick={(e) =>{
         navigate('/outputsShow',
@@ -138,7 +142,9 @@ const proceedButton = () =>{
   return (
     <div>
         <div>
-      <button onClick={onAddBtnClick}>Add repo to choose from</button>
+      <button 
+      className="button-design"
+      onClick={onAddBtnClick}>Add repo to choose from</button>
       </div>
       {reposChooseList}
       {proceedButton()}
