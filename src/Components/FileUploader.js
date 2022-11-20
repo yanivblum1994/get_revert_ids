@@ -68,6 +68,7 @@ export const FileUploader = () => {
     return (
         <div className="container-div">
             <h1>Upload the revert id's file</h1>
+            <p><a href="https://wiki.checkpoint.com/confluence/display/GlobalPO/Revert+ID%27s+Fetcher" target="_blank" rel="noopener noreferrer">Click here to go to the how to use wiki page</a></p>
             <p><a href="https://d9builder.falconetix.com/job/Get_Revert_IDs" target="_blank" rel="noopener noreferrer">Click here to go to the Jenkins job</a></p>
             <input type="file" onChange={handleFileUpload}/>
             {fileData()}

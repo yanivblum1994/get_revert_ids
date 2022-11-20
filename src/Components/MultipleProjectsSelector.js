@@ -58,18 +58,13 @@ export const MultipleProjectsSelector = (props) => {
   }, [selectedRepos]);
 
   useEffect(()=>{
-    console.log(selectedProjects);
   },[selectedProjects]);
  
 
   const MultiSelectProjects = (counter) => {
-    console.log(counter);
     let repo = selectedRepos[counter.data];
-    console.log(repo);
     let projects = allProjects.filter((x) => x.repository === repo);
-    console.log(projects);
     let projectsArr = CreateProjectsOptionsArr(projects);
-    console.log(projectsArr);
     return (
       <div>
         <Multiselect

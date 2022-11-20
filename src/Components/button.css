@@ -1,8 +1,8 @@
 .button-design {
-    background-color: #837f7f; 
+    background-color: rgb(1, 120, 255); 
     border: "1px solid black";
     color: white;
-    padding: 15px 32px;
+    padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -10,4 +10,5 @@
     cursor: pointer;
     margin-top: 20px;
     margin-bottom: 5px;
+    border-radius: 12px;
   }

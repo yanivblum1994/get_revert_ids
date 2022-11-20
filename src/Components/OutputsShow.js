@@ -6,20 +6,13 @@ import './containerDiv.css';
 
 export const OutputsShow = () => {
   const { state } = useLocation();
-  console.log(state);
   const selectedComponents = state.components.selectedComponents;
-  console.log(selectedComponents);
   const selectedProjects = state.selectedProjects.selectedProjects;
-  console.log(selectedProjects);
   const allProjects = state.allProjects.allProjects;
-  console.log(allProjects);
 
   const PresentDeployIds = (repo) => {
-    console.log(repo);
     let projectsSelected = selectedProjects[repo];
-    console.log(projectsSelected);
     let projectsFromRepo = allProjects.filter((x) => x.repository === repo);
-    console.log(projectsFromRepo);
     let projectsToDisplay = [];
     for (const projSel of projectsSelected) {
         for(const repoProj of projectsFromRepo){
@@ -28,13 +21,25 @@ export const OutputsShow = () => {
             }
         }
     }
-    console.log(projectsToDisplay);
-    for(const x of projectsToDisplay){
+    let keys = new Set();
+    for (const x of projectsToDisplay){
         if(x.configuration_path === x.deploy_target){
             x.configuration_path = '';
         }
+        x.key = x.configuration_path + '-' + x.deploy_target + '-' + x.deploy_id;
+        keys.add(x.key);
     }
-    console.log(projectsToDisplay);
+    let res = []
+    for(const x of keys){
+        for(const y of projectsToDisplay){
+            if(y.key === x){
+                res.push(y);
+                break;
+            }
+        }
+    }
+
+
     return (
       <div>
         <table>
@@ -48,9 +53,9 @@ export const OutputsShow = () => {
             </tr>
           </thead>
           <tbody>
-            {projectsToDisplay.map((item) => {
+            {res.map((item) => {
               return (
-                <tr key={item.configuration_path}>
+                <tr key={item.key}>
                   <td>{item.configuration_path}</td>
                   <td>{item.deploy_target}</td>
                   <td>{item.deploy_id}</td>
