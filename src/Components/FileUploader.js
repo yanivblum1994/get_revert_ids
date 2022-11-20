@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {read, utils} from "xlsx";
+import {read} from "xlsx";
 import './button.css';
 import './containerDiv.css';
 

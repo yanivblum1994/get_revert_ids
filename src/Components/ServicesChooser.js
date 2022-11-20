@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import {utils} from 'xlsx';
 import Multiselect from 'multiselect-react-dropdown';
 import { MultipleProjectsSelector } from "./MultipleProjectsSelector";
@@ -22,7 +21,6 @@ const FillEmptyConfigurationPath = (x) => {
 
 
 export const ServicesChooser = () =>{
-    let navigate = useNavigate();
     const [selectedComponents, setSelectedComponents] = useState([]);
     const { state } = useLocation();
     const input = state.props.workbook;

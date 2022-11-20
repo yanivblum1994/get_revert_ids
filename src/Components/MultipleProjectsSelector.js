@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Multiselect from "multiselect-react-dropdown";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import './multiSelect.css';
 
 const UniqueKeysFilter = (x, repos) => {
@@ -51,7 +50,7 @@ export const MultipleProjectsSelector = (props) => {
   let reposArr = CreateOptionsArr(repos);
 
   useEffect(() =>{
-    if(selectedRepos.length != 0){
+    if(selectedRepos.length !== 0){
         setReposCounter(reposCounter +1);
         setReposChooseList(reposChooseList.concat(<MultiSelectProjects  data={reposCounter}/>));
     }
